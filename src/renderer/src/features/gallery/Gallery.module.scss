@@ -1,0 +1,43 @@
+.scroll {
+  flex: 1;
+  overflow-y: auto;
+  // 不管有没有滚动条，都固定预留滚动条的位置：图片少（没有滚动条）和图片多（有滚动条）的文件夹
+  // 内容区宽度一致，切换时瀑布流不会因为宽度变化而重新排布、抖动
+  scrollbar-gutter: stable;
+  // 右侧预留的滚动条位置（约 8px）也算在右边距里，所以右内边距比左边少 8px，视觉上两边仍然对称
+  padding: 14px 16px 28px 24px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 4px;
+  }
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 120px 0;
+  opacity: 0.85;
+
+  span {
+    font-size: 13px;
+    opacity: 0.7;
+  }
+
+  button {
+    margin-top: 6px;
+    padding: 8px 18px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--accent, #e3a857);
+    color: #1a1a1a;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}

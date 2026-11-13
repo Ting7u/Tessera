@@ -1,0 +1,116 @@
+// 多个组件共用的样式片段。用法：@use './mixins' as *;
+
+// 按钮的基础排版
+@mixin btn-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+// 主按钮（强调色）
+@mixin primary-btn {
+  @include btn-base;
+  padding: 9px 13px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+  font-size: 13px;
+  box-shadow: 0 3px 10px #00000028;
+
+  &:hover {
+    filter: brightness(1.06);
+  }
+}
+
+// 小号灰色分组标题（弹窗字段名、详情栏分组名）
+@mixin field-label {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  margin-bottom: 9px;
+}
+
+// 图片卡片和详情预览上的斜向高光
+@mixin glare {
+  position: absolute;
+  z-index: -2;
+  inset: -30% 22% 35% -35%;
+  transform: rotate(-22deg);
+  background: #ffffff38;
+  filter: blur(20px);
+}
+
+// 灰色小图标按钮（弹窗关闭、详情栏关闭）
+@mixin ghost-icon-btn {
+  color: var(--muted);
+  padding: 5px;
+  border-radius: 6px;
+
+  &:hover {
+    color: var(--text);
+    background: var(--panel-2);
+  }
+}
+
+// ---------- 弹窗动效 ----------
+// 打开：遮罩渐显，弹窗从下往上移动并渐显；关闭：弹窗从上往下移动并渐隐。
+// 关闭动画靠 Presence 组件在外层加 data-closing 标记触发（见 components/Presence）。
+// 这里的 0.18s 要和 Presence.jsx 里的 EXIT_MS（200ms）对应
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modal-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes modal-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes modal-sink-out {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+// 用在遮罩层上
+@mixin modal-backdrop-motion {
+  animation: modal-fade-in 0.2s ease-out both;
+
+  [data-closing] & {
+    animation: modal-fade-out 0.18s ease-in both;
+    pointer-events: none; // 正在关闭时不再响应点击
+  }
+}
+
+// 用在弹窗本体上
+@mixin modal-panel-motion {
+  animation: modal-rise-in 0.24s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  [data-closing] & {
+    animation: modal-sink-out 0.18s ease-in both;
+  }
+}

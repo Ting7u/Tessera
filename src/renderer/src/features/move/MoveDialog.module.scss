@@ -1,0 +1,154 @@
+@use "../../shared/styles/mixins" as *;
+
+.backdrop {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #06080cb8;
+  backdrop-filter: blur(3px);
+  @include modal-backdrop-motion;
+}
+
+.dialog {
+  width: min(480px, calc(100vw - 36px));
+  max-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--panel);
+  box-shadow: 0 20px 60px #0008;
+  @include modal-panel-motion;
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  @include ghost-icon-btn;
+}
+
+.title {
+  font-size: 18px;
+}
+
+.intro {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.notes {
+  margin: 10px 0 0;
+  padding: 9px 12px 9px 26px;
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--accent-soft);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.list {
+  flex: 1;
+  min-height: 0;
+  margin-top: 14px;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  text-align: left;
+  color: var(--accent);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+
+  &:hover:not(:disabled) {
+    border-color: var(--accent);
+  }
+
+  &.chosen {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+}
+
+.copy {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+
+  b {
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  small {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--muted);
+    font-size: 11px;
+  }
+}
+
+.count {
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.other {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  color: var(--muted);
+  font-size: 13px;
+  border: 1px dashed var(--line);
+  border-radius: 9px;
+
+  &:hover:not(:disabled) {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.textButton {
+  padding: 8px 12px;
+  color: var(--muted);
+
+  &:hover:not(:disabled) {
+    color: var(--text);
+  }
+}
+
+.primary {
+  @include primary-btn;
+}

@@ -1,0 +1,15 @@
+.title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 12px 22px 12px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+
+  small {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+  }
+}

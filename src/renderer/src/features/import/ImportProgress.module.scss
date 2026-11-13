@@ -1,0 +1,55 @@
+// 颜色请换成 styles/theme.scss 里已有的变量；这里的 var(--x, 默认值) 只是兜底
+.progress {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 50;
+  width: 300px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  background: var(--panel, #1f222a);
+  border: 1px solid var(--border, #2d313b);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+
+  button {
+    background: none;
+    border: 0;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    font-size: 16px;
+  }
+}
+
+.file {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.6;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bar {
+  margin-top: 10px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(128, 128, 128, 0.25);
+  overflow: hidden;
+
+  i {
+    display: block;
+    height: 100%;
+    background: var(--accent, #e3a857);
+    transition: width 0.15s;
+  }
+}

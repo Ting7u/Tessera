@@ -1,0 +1,66 @@
+@use "../../shared/styles/mixins" as *;
+
+// 零高度锚点：占位但不撑开布局
+.anchor {
+  position: relative;
+  height: 0;
+  z-index: 5;
+}
+
+// 贴在标题行右侧。如果和标题文字的垂直位置没对齐，只需要调这里的 top
+.bar {
+  position: absolute;
+  top: 10px;
+  right: 24px;
+  height: 32px;
+  padding: 0 6px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 8px;
+  // 叠一层不透明底色，避免透出下面的内容
+  background: linear-gradient(var(--accent-soft), var(--accent-soft)), var(--panel);
+  border: 1px solid var(--accent-soft-line);
+  box-shadow: 0 4px 12px #00000026;
+}
+
+.count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.cancel {
+  @include btn-base;
+  padding: 3px 6px;
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+.divider {
+  width: 1px;
+  height: 14px;
+  margin: 0 2px;
+  background: var(--accent-soft-line);
+}
+
+.action {
+  @include btn-base;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+
+  &:hover {
+    color: var(--text);
+    background: var(--panel);
+  }
+}

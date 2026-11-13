@@ -1,0 +1,31 @@
+{
+  // Node 侧的类型检查：主进程 + 预加载 + shared + 脚本 + 纯逻辑测试。
+  // 渲染进程有自己的 src/renderer/tsconfig.json（需要 DOM 类型）。
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node"],
+    "paths": {
+      "@shared/*": ["./src/shared/*"],
+      "@main/*": ["./src/main/*"],
+      "@renderer/*": ["./src/renderer/src/*"]
+    }
+  },
+  "include": [
+    "electron.vite.config.ts",
+    "src/main/**/*",
+    "src/preload/**/*",
+    "src/shared/**/*",
+    "src/renderer/src/**/*.test.ts"
+  ]
+}

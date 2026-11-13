@@ -1,0 +1,94 @@
+@use "../../styles/mixins" as *;
+
+// 通用菜单（右键菜单和下拉菜单共用）。渲染在 body 上，用 fixed 定位，位置由 Menu.jsx 算好后写进行内样式。
+// 想改菜单的整体外观，只改这个文件就行。
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-3px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 148px;
+  max-width: 280px;
+  padding: 5px;
+  display: grid;
+  gap: 2px;
+  border-radius: 10px;
+  background: var(--panel);
+  border: 1px solid var(--accent-soft-line);
+  box-shadow: 0 10px 28px #0006;
+  outline: none;
+  animation: menu-in 0.12s ease-out both;
+}
+
+.item {
+  @include btn-base;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 8px;
+  padding: 7px 10px;
+  font-size: 12px;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+
+  // 鼠标悬停和键盘选中（↑ ↓）用同一个高亮
+  &:hover:not(:disabled),
+  &:focus-visible {
+    background: var(--accent-soft);
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+// 选中的单选项（带对勾）
+.checked {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+// 危险操作（删除、移除等）
+.danger {
+  color: var(--danger, #e5675c);
+
+  &:hover:not(:disabled),
+  &:focus-visible {
+    background: color-mix(in srgb, var(--danger, #e5675c) 14%, transparent);
+  }
+}
+
+// 图标列：固定宽度，有图标和没图标的选项文字都能对齐
+.icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 15px;
+  color: inherit;
+}
+
+.divider {
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--line);
+}
+
+// 小号分组标题
+.label {
+  padding: 6px 10px 3px;
+  font-size: 11px;
+  color: var(--faint);
+}

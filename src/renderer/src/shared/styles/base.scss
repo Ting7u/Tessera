@@ -1,0 +1,95 @@
+:root {
+  font-family:
+    "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC",
+    "Source Han Sans SC", "WenQuanYi Micro Hei", system-ui, sans-serif;
+}
+
+// 让浏览器自带控件（滚动条等）跟随主题，深色下不再出现亮白色轨道
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+// 细滚动条：平时透明，鼠标移上去才显示淡淡的滑块
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*:hover {
+  scrollbar-color: rgba(128, 128, 128, 0.4) transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+// 主题切换时的平滑过渡，不影响布局和交互时序
+*,
+*::before,
+*::after {
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease,
+    outline-color 0.2s ease;
+}
+
+// 切换主题的那一瞬间（useThemeEffect 会给 <html> 加上 theme-switching）：
+// 关掉每个元素自己的颜色过渡，改由浏览器把“切换前”和“切换后”两张整页画面做一次淡入淡出。
+// 这样所有元素同步变化，不会出现有的先变、有的后变（比如文字已经变黑、背景还没变亮）
+:root.theme-switching,
+:root.theme-switching *,
+:root.theme-switching *::before,
+:root.theme-switching *::after {
+  transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+}

@@ -1,0 +1,104 @@
+@use "../../shared/styles/mixins" as *;
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 78px;
+  padding: 13px 24px 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.heading {
+  flex: 1;
+  min-width: 150px;
+}
+
+.crumb {
+  display: block;
+  color: var(--faint);
+  font-size: 11px;
+  margin-bottom: 4px;
+
+  i {
+    font-style: normal;
+    padding: 0 4px;
+  }
+}
+
+.title {
+  font-size: 19px;
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+
+  small {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 9px;
+  }
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 248px;
+  padding: 8px 11px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--field);
+  color: var(--muted);
+
+  &:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    background: none;
+    border: 0;
+    outline: 0;
+    color: var(--text);
+    font-size: 13px;
+  }
+}
+
+.btn {
+  @include btn-base;
+  padding: 8px 10px;
+  background: var(--field);
+  color: var(--muted);
+  font-size: 13px;
+
+  &:hover {
+    color: var(--text);
+    background: var(--panel-3);
+  }
+}
+
+.iconOnly {
+  @include btn-base;
+  width: 34px;
+  height: 34px;
+  color: var(--muted);
+
+  &:hover {
+    color: var(--text);
+    background: var(--panel-3);
+  }
+}
+
+.importButton {
+  min-width: 78px;
+  @include primary-btn;
+}
+
+@media (max-width: 970px) {
+  .search {
+    width: 190px;
+  }
+}

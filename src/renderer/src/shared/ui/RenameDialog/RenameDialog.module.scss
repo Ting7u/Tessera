@@ -1,0 +1,98 @@
+// 重命名弹窗内部样式（外壳在 Dialog）。颜色全部使用 theme.scss 里的变量
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+
+  h3 {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  span {
+    font-size: 12px;
+    color: var(--muted);
+  }
+}
+
+.label {
+  margin: 14px 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--field);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+
+  &::placeholder {
+    color: var(--muted);
+    opacity: 0.65;
+  }
+
+  &:hover {
+    border-color: var(--muted);
+  }
+
+  // 聚焦：细边框 + 一圈柔和的强调色光晕；同时写 :focus-visible，避免出现“双层边框”
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  &::selection {
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+}
+
+.error {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #e5675c;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.cancel {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--muted);
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+.done {
+  padding: 6px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--accent);
+  background: var(--panel-2);
+
+  &:hover {
+    filter: brightness(1.15);
+  }
+}

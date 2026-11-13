@@ -1,0 +1,1 @@
+export { registerTagsIpc } from "./ipc";

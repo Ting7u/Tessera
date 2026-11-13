@@ -1,0 +1,38 @@
+# 打包配置（electron-builder）。构建产物在 out/，安装包输出到 release/。
+appId: com.tingyu.tessera
+productName: Tessera
+directories:
+  output: release
+  buildResources: build
+files:
+  - out/**/*
+  - resources/**/*
+  - package.json
+# 原生模块不能放在 asar 压缩包里运行
+asarUnpack:
+  - "**/node_modules/better-sqlite3/**/*"
+  - "**/node_modules/sharp/**/*"
+  - "**/node_modules/@img/**/*"
+publish:
+  provider: github
+  releaseType: draft
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch: [x64]
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  artifactName: Tessera-Setup-${version}.${ext}
+mac:
+  target:
+    - target: dmg
+      arch: [arm64, x64]
+  category: public.app-category.photography
+  artifactName: Tessera-${version}-mac-${arch}.${ext}
+linux:
+  target:
+    - AppImage
+  category: Graphics
+  artifactName: Tessera-${version}-linux-${arch}.${ext}

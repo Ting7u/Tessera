@@ -1,0 +1,65 @@
+// 标签小圆角块（侧边栏标签云、标签弹窗共用）。颜色由行内样式传入的 --tag-h（色相）决定
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 4px 9px 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--text);
+  background: hsl(var(--tag-h) 70% 55% / 0.14);
+  border: 1px solid hsl(var(--tag-h) 70% 55% / 0.28);
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+
+  &:hover {
+    background: hsl(var(--tag-h) 70% 55% / 0.26);
+    border-color: hsl(var(--tag-h) 70% 55% / 0.55);
+  }
+
+  // 选中：整块变成标签自己的颜色
+  &.active {
+    background: hsl(var(--tag-h) 62% 46%);
+    border-color: transparent;
+    color: #fff;
+    font-weight: 600;
+
+    .dot {
+      background: #fff;
+    }
+
+    .count {
+      opacity: 0.85;
+    }
+  }
+}
+
+// 不可点击的标签（只展示）
+.static {
+  cursor: default;
+}
+
+.dot {
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: hsl(var(--tag-h) 70% 55%);
+}
+
+.name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.count {
+  flex: none;
+  font-size: 10px;
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}

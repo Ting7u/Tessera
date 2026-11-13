@@ -1,0 +1,18 @@
+.content {
+  position: relative;
+  width: 100%;
+}
+
+// 格子的位置和大小由布局算法决定。卡片（Tile）自己带有 aspect-ratio 和 min-height，
+// 这里强制让它铺满格子，这样不用改 Tile 组件本身
+.cell {
+  position: absolute;
+
+  > * {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    aspect-ratio: auto !important;
+  }
+}

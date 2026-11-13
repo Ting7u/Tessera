@@ -1,0 +1,28 @@
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  padding: 14px 16px 0;
+  user-select: none;
+  -webkit-app-region: drag;
+  z-index: 1;
+}
+
+// Mac：左上角是系统的红黄绿按钮（约 66px 宽），把 logo 和标题挪到它们右边
+.mac {
+  padding-left: 84px;
+}
+
+.logo {
+  flex: none;
+  width: 22px;
+  height: 22px;
+}
+
+.title {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+}

@@ -1,0 +1,17 @@
+.app {
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  grid-template-rows: 32px minmax(0, 1fr);
+  height: 100%;
+  background: var(--panel);
+}
+
+.main {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--panel);
+  overflow: hidden;
+}

@@ -1,0 +1,155 @@
+@use "../../shared/styles/mixins" as *;
+
+// ---------- 新建智能分类弹窗（和标签弹窗保持同一套风格） ----------
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  @include modal-backdrop-motion;
+}
+
+.dialog {
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
+  padding: 18px;
+  border-radius: 12px;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  @include modal-panel-motion;
+
+  h3 {
+    margin: 0;
+    font-size: 15px;
+  }
+}
+
+.sub {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.field {
+  display: block;
+  margin-top: 14px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+// 条件区：和“名称”之间用细线隔开
+.group {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.groupTitle {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.control {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 13px;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--field);
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.4;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+
+  &::placeholder {
+    color: var(--muted);
+    opacity: 0.65;
+  }
+
+  &:hover {
+    border-color: var(--muted);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  // 数字框：去掉浏览器自带的上下小箭头，单位写在框里右侧
+  &[type="number"] {
+    appearance: textfield;
+    padding-right: 42px;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+  }
+}
+
+.unit {
+  position: absolute;
+  top: 50%;
+  right: 13px;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+// 仅收藏：开关（通用 Switch），只负责和上面的字段隔开
+.favoriteSwitch {
+  margin-top: 16px;
+}
+
+.error {
+  margin: 12px 0 0;
+  font-size: 12px;
+  color: #e5675c;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.cancel {
+  @include btn-base;
+  padding: 7px 14px;
+  font-size: 13px;
+  color: var(--muted);
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+.submit {
+  @include primary-btn;
+  padding: 7px 18px;
+}

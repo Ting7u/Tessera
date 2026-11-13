@@ -1,0 +1,162 @@
+@use "../../shared/styles/mixins" as *;
+
+.backdrop {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #06080cb8;
+  backdrop-filter: blur(3px);
+  @include modal-backdrop-motion;
+}
+
+.dialog {
+  width: min(540px, calc(100vw - 36px));
+  padding: 26px;
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--panel);
+  box-shadow: 0 20px 60px #0008;
+  @include modal-panel-motion;
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  @include ghost-icon-btn;
+}
+
+.icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  color: var(--accent);
+  border-radius: 12px;
+  background: var(--accent-soft);
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 19px;
+}
+
+.intro {
+  margin-top: 8px;
+  max-width: 430px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+// 按钮里的两行文字（标题 + 说明）
+.copy {
+  display: grid;
+  gap: 3px;
+
+  b {
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  small {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.35;
+  }
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 20px 0;
+
+  button {
+    display: flex;
+    gap: 10px;
+    padding: 13px;
+    text-align: left;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    color: var(--accent);
+
+    &:hover {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+  }
+}
+
+.modeBlock {
+  border-top: 1px solid var(--line);
+  padding-top: 17px;
+}
+
+.fieldLabel {
+  @include field-label;
+}
+
+.modeOptions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+}
+
+.radio {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  margin-top: 2px;
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+}
+
+.modeOption {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+
+  &.chosen {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+
+    .radio {
+      border: 4px solid var(--accent);
+    }
+  }
+}
+
+// 开关本身已经移到 Switch 组件，这里只负责它在弹窗里的位置
+.watchOption {
+  margin-top: 18px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.textButton {
+  padding: 8px 12px;
+  color: var(--muted);
+
+  &:hover {
+    color: var(--text);
+  }
+}
+
+.primary {
+  @include primary-btn;
+}

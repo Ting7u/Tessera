@@ -1,0 +1,132 @@
+// ---- 尺寸：所有尺寸都由这三个变量决定 ----
+// 滑块直径 = 高度 - 2 * 内边距；滑动距离 = 宽度 - 高度
+.size-sm {
+  --sw-w: 28px;
+  --sw-h: 16px;
+  --sw-pad: 2px;
+}
+
+.size-md {
+  --sw-w: 34px;
+  --sw-h: 20px;
+  --sw-pad: 2px;
+}
+
+.size-lg {
+  --sw-w: 46px;
+  --sw-h: 26px;
+  --sw-pad: 3px;
+}
+
+// ---- 动画 ----
+.anim-smooth {
+  --sw-dur: 0.2s;
+  --sw-ease: ease;
+}
+
+.anim-spring {
+  --sw-dur: 0.32s;
+  --sw-ease: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.anim-none {
+  --sw-dur: 0s;
+  --sw-ease: linear;
+}
+
+// ---- 带文字时的外层 ----
+.root {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+
+  &.reverse {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+}
+
+.text {
+  display: grid;
+  gap: 3px;
+
+  b {
+    color: var(--text);
+    font-size: 13px;
+  }
+
+  small {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.35;
+  }
+}
+
+// ---- 开关本体 ----
+.track {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: var(--sw-w);
+  height: var(--sw-h);
+  padding: var(--sw-pad);
+  border-radius: 100px;
+  background: var(--sw-off, var(--line));
+  cursor: pointer;
+  transition: background-color var(--sw-dur) var(--sw-ease);
+
+  &.on {
+    background: var(--sw-on, var(--accent));
+  }
+
+  &:hover:not(:disabled) {
+    filter: brightness(1.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sw-on, var(--accent));
+    outline-offset: 2px;
+  }
+}
+
+.thumb {
+  display: grid;
+  place-items: center;
+  width: calc(var(--sw-h) - var(--sw-pad) * 2);
+  height: calc(var(--sw-h) - var(--sw-pad) * 2);
+  border-radius: 50%;
+  background: var(--sw-thumb, white);
+  transition: transform var(--sw-dur) var(--sw-ease);
+
+  .on > & {
+    transform: translateX(calc(var(--sw-w) - var(--sw-h)));
+  }
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 70%;
+  height: 70%;
+  color: var(--sw-icon, var(--sw-on, var(--accent)));
+  line-height: 0;
+
+  svg {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+// ---- 禁用 ----
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  .track,
+  &.track {
+    cursor: not-allowed;
+  }
+}

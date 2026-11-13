@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Tessera · 下载图片到图库",
+  "version": "1.2.0",
+  "description": "在网页图片上右键，选择“下载到 Tessera”，图片会下载并加入 Tessera 图库（需要先运行 Tessera）。图片被透明层盖住的网站（如 Instagram）也能用。",
+  "permissions": [
+    "contextMenus",
+    "storage"
+  ],
+  "host_permissions": [
+    "http://127.0.0.1/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "Tessera：点击检查连接"
+  },
+  "icons": {
+    "16": "icons/16.png",
+    "48": "icons/48.png",
+    "128": "icons/128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_start"
+    }
+  ]
+}

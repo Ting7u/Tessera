@@ -1,0 +1,53 @@
+{
+  "name": "tessera",
+  "productName": "Tessera",
+  "version": "1.0.0",
+  "description": "Tessera: 本地图片库桌面应用",
+  "license": "ISC",
+  "author": "Tingyu",
+  "private": true,
+  "type": "commonjs",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "start": "electron-vite preview",
+    "build": "npm run typecheck && electron-vite build",
+    "dist": "npm run build && electron-builder --win",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:linux": "npm run build && electron-builder --linux",
+    "typecheck": "npm run typecheck:node && npm run typecheck:web",
+    "typecheck:node": "tsc --noEmit -p tsconfig.json",
+    "typecheck:web": "tsc --noEmit -p src/renderer/tsconfig.json",
+    "test": "tsx --test \"src/**/*.test.ts\"",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "check:boundaries": "node scripts/check-boundaries.mjs",
+    "check:ipc": "node scripts/check-ipc.mjs",
+    "check": "npm run typecheck && npm run check:i18n && npm run check:boundaries && npm run check:ipc && npm test"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "electron": "^45.0.0",
+    "electron-builder": "^26.18.0",
+    "electron-vite": "^4.0.0",
+    "sass": "^1.107.0",
+    "tsx": "^4.19.0",
+    "typescript": "^7.0.2",
+    "vite": "^5.4.21"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "better-sqlite3": "^13.0.3",
+    "chokidar": "^3.6.0",
+    "exifr": "^7.1.3",
+    "image-size": "^1.2.1",
+    "lucide-react": "^1.72.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.35.5",
+    "zustand": "^5.0.16"
+  }
+}

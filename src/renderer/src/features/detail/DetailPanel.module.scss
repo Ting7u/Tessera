@@ -1,0 +1,342 @@
+@use "../../shared/styles/mixins" as *;
+
+// 全屏黑色遮罩，连顶部 32px 的自定义标题栏一起盖住，整体是一块纯黑。
+// 窗口右上角的最小化/最大化/关闭按钮是系统画的，始终在最上层，不会被盖住；
+// padding-top: 32px 让下面的内容（文件名、关闭按钮）仍然从标题栏下方开始排，不会落到窗口拖动区里
+.overlay {
+  position: fixed;
+  z-index: 900; // 比标题栏高，比提示条 Toast（1000）低
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 32px;
+  display: flex;
+  justify-content: center;
+  background: #000; // 完全不透明：之前是 rgba(0,0,0,.92)，底下的侧边栏文字会隐约透出来
+}
+
+// dialog 本身占满中间整列，但对鼠标“透明”：点到它的空白处，点击会落到下面的遮罩上，从而关闭。
+// 真正需要响应点击的内容（标题、按钮、图片、信息区）单独打开 pointer-events
+.dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(1100px, 94vw);
+  height: 100%;
+  min-height: 0;
+  pointer-events: none;
+}
+
+.head {
+  flex: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0 10px;
+  color: #fff;
+
+  button {
+    @include ghost-icon-btn;
+    pointer-events: auto;
+  }
+}
+
+.name {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+  pointer-events: auto;
+
+  b {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+
+  span {
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 11px;
+  }
+}
+
+// 原图区域：占满剩余高度，图片等比缩放、不裁剪
+.stage {
+  position: relative; // 左右切换箭头相对它定位
+  flex: 1;
+  min-height: 0;
+  padding: 0 64px; // 左右各留一条 64px 的空档给切换箭头：图片最宽只到空档边上，箭头永远在图片外面
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
+    pointer-events: auto; // 点图片本身不关闭（右键菜单也需要它能接收事件）
+  }
+}
+
+.placeholder {
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
+  border-radius: 6px;
+  pointer-events: auto;
+}
+
+// 原文件丢失时盖在图片区底部的提示条，不拦截鼠标
+.missing {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 140px);
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(192, 57, 43, 0.85);
+  font-size: 12px;
+  text-align: center;
+  pointer-events: none;
+}
+
+// 下方信息区：最多占 40% 高度，超出滚动
+.info {
+  flex: none;
+  max-height: 40%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin: 12px 0 16px;
+  border-radius: 10px;
+  background: var(--panel);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  pointer-events: auto;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+
+  button {
+    @include btn-base;
+    height: 30px;
+    color: var(--muted);
+    background: var(--field);
+
+    &:hover {
+      color: var(--text);
+    }
+  }
+}
+
+.section {
+  min-width: 0; // grid 子项默认不能比内容窄，长路径会把整列撑宽，盖住旁边的“标签”列
+  padding: 15px 16px;
+
+  dl {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr); // 让长路径可以被省略号截断，而不是撑宽
+    gap: 8px;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12px;
+    }
+  }
+
+  dt {
+    color: var(--muted);
+    flex: none;
+  }
+
+  dd {
+    margin: 0;
+    flex: 1;
+    min-width: 0;
+    text-align: right;
+    color: var(--text);
+
+    &.path {
+      color: var(--accent);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.label {
+  @include field-label;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  span,
+  button {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    padding: 4px 7px;
+    border-radius: 5px;
+    color: var(--muted);
+    background: var(--field);
+    font-size: 11px;
+  }
+
+  button {
+    color: var(--accent);
+    border: 1px dashed var(--line);
+    background: transparent;
+  }
+}
+
+// ---------------------------
+.hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.link {
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.tagRemove {
+  margin-left: 4px;
+  font-style: normal;
+  opacity: 0.5;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.tagInput {
+  width: 90px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  border: 1px solid var(--accent, #e3a857);
+  background: transparent;
+  color: inherit;
+  outline: none;
+}
+
+// 左右切换图片的箭头：竖直居中在图片区域两侧。dialog 本身对鼠标透明，所以这里要单独打开 pointer-events
+.nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  pointer-events: auto;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.24);
+  }
+
+  &.prev {
+    left: 8px;
+  }
+
+  &.next {
+    right: 8px;
+  }
+}
+
+// ===== 大图骨架框 / 淡入 / 复制按钮动画 =====
+
+// 让舞台成为“尺寸容器”：骨架框用 cqw / cqh 算出和真实图片一样的“等比铺满”大小。
+// 它本来就是 flex: 1 撑满剩余高度，尺寸不依赖内容，所以不会有副作用
+.stage {
+  container-type: size;
+}
+
+.skeleton {
+  width: min(100cqw, calc(100cqh * var(--ratio, 1)));
+  aspect-ratio: var(--ratio, 1);
+  border-radius: 6px;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.05) 30%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.05) 70%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s linear infinite;
+  pointer-events: auto; // 点骨架框不关闭详情，和图片一致
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
+// 图片解码完成后淡入，80ms
+.fadeIn {
+  animation: detail-fade-in 80ms ease-out;
+}
+
+@keyframes detail-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+// 复制按钮“复制中”的闪烁（ImageActions 用到）
+.busy {
+  animation: copy-pulse 0.8s ease-in-out infinite;
+  cursor: progress;
+}
+
+@keyframes copy-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+// 系统设置了“减少动态效果”时关闭这些动画
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .fadeIn,
+  .busy {
+    animation: none;
+  }
+}

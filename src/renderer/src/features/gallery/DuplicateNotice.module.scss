@@ -1,0 +1,36 @@
+.notice {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 15px 24px 0;
+  padding: 10px 12px;
+  color: #d8c19a;
+  border: 1px solid #705a3559;
+  border-radius: 9px;
+  background: #624c2417;
+  font-size: 12px;
+
+  > svg {
+    color: var(--accent);
+    flex: none;
+  }
+
+  b {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  button {
+    margin-left: auto;
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  @media (max-width: 970px) {
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}

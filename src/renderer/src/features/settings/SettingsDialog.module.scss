@@ -1,0 +1,230 @@
+@use "../../shared/styles/mixins" as *;
+
+.backdrop {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #06080cb8;
+  backdrop-filter: blur(3px);
+  @include modal-backdrop-motion;
+}
+
+.dialog {
+  width: min(680px, calc(100vw - 36px));
+  min-height: 340px;
+  max-height: calc(100vh - 60px);
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  background: var(--panel);
+  box-shadow: 0 20px 60px #0008;
+  @include modal-panel-motion;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 22px 12px;
+  border-right: 1px solid var(--line);
+}
+
+.title {
+  padding: 0 10px 12px;
+  font-size: 17px;
+}
+
+.navItem {
+  padding: 8px 10px;
+  text-align: left;
+  font-size: 13px;
+  color: var(--muted);
+  border-radius: 8px;
+
+  &:hover {
+    color: var(--text);
+  }
+
+  &.current {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+}
+
+.content {
+  position: relative;
+  padding: 26px 28px;
+  overflow-y: auto;
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  @include ghost-icon-btn;
+}
+
+.heading {
+  font-size: 16px;
+}
+
+.hint {
+  margin: 8px 0 20px;
+  max-width: 420px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.fieldLabel {
+  @include field-label;
+}
+
+.pathRow {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.path {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 11px;
+  font-size: 12px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+
+  svg {
+    flex: none;
+    color: var(--accent);
+  }
+
+  span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &.empty {
+    color: var(--muted);
+  }
+}
+
+.secondary {
+  flex: none;
+  padding: 0 14px;
+  font-size: 13px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+
+  &:hover:not(:disabled) {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+// 维护：检查结果
+.result {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.summary {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.ok {
+  font-size: 13px;
+}
+
+.group {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+
+  b {
+    display: block;
+    font-size: 13px;
+  }
+
+  small {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.55;
+  }
+
+  button {
+    padding: 7px 14px;
+    white-space: nowrap;
+  }
+}
+
+.dirs {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 11px;
+
+  li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 330px;
+  }
+}
+
+// 语言选项
+.options {
+  display: grid;
+  gap: 8px;
+  max-width: 280px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 13px;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+
+  svg {
+    flex: none;
+  }
+
+  &:hover {
+    border-color: var(--accent);
+  }
+
+  &.selected {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+}

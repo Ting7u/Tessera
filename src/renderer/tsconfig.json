@@ -1,0 +1,28 @@
+{
+  // 渲染进程的类型检查（浏览器环境，有 DOM，没有 Node）。
+  // 路径别名必须和 electron.vite.config.ts 里的 alias 保持一致。
+  "compilerOptions": {
+    "target": "ES2022",
+    "useDefineForClassFields": true,
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["vite/client"],
+    "paths": {
+      "@renderer/*": ["./src/*"],
+      "@shared/*": ["../shared/*"]
+    }
+  },
+  "include": ["src/**/*", "../shared/**/*"],
+  "exclude": ["src/**/*.test.ts", "../shared/**/*.test.ts"]
+}
